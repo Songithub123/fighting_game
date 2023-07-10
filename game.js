@@ -1,3 +1,11 @@
+let p = document.createElement("p");
+function narration(action) {
+  p.textContent = "You " + action;
+  (document.querySelector(".computer-narration")).appendChild(p);
+}
+
+
+
 let character = (function () {
   let stats = {
     atk: 100,
@@ -5,19 +13,17 @@ let character = (function () {
     hp: 1000,
     mp: 100,
   };
-  function handleCLick(){
-    console.log("idiot")
-  }
+  
   function actions (action) {
     switch (action){
       case "attack":
-        console.log("You attacked");
+        narration(action);
         break;
       case "defense":
-        console.log("You defense");
+        narration(action);
         break;
       case "special":
-        console.log("You use special ability");
+        narration(action);
         break;
     };
   }
@@ -26,3 +32,4 @@ let character = (function () {
     actions: actions
   };
 })();
+
