@@ -1,0 +1,36 @@
+#background {
+  object-fit: cover;
+  margin-top: -100px;
+  position: absolute;
+}
+img {
+  max-width: 100%;
+}
+.enemy {
+  width: 180px;
+  position: absolute;
+  top: 20px;
+  right: 0;
+  z-index: 2;
+}
+.player {
+  width: 250px;
+  position: absolute;
+  bottom: 20px;
+  left: 0;
+  z-index: 2;
+}
+
+button {
+  color: #3f0898;
+  text-shadow: 0 0 7px #fff, 0 0 10px #fff, 0 0 21px #fff, 0 0 42px #0fa,
+    0 0 82px #0fa, 0 0 92px #0fa, 0 0 102px #0fa, 0 0 151px #0fa;
+  font-size: 40px;
+  position: relative;
+  .frmBtn {
+    width: 200px;
+  }
+  /*display: inline-block;
+  width: 200px; */
+}
+
