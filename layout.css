@@ -2,15 +2,17 @@
   position: relative;
   background-color: black;
   margin-top: 30px;
+  
+  /*display: flex;*/
 }
 .screen {
   position: relative;
   width: 500px;
   height: 400px;
-  flex-grow: 1;
   background-color: #3f0898;
+
 }
-.control {
+.control, .SpellList {
   background-color: #8f2702;
   width: 60%;
   height: 150px;

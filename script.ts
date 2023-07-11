@@ -1,7 +1,8 @@
-let p = document.createElement("p");
-function narration(action) {
+let p: HTMLParagraphElement = document.createElement("p");
+
+function narration(action: string): void {
   p.textContent = "You " + action;
-  document.querySelector(".computer-narration").appendChild(p);
+  document.querySelector(".computer-narration")!.appendChild(p);
 }
 
 let character = (function () {
@@ -12,7 +13,7 @@ let character = (function () {
     mp: 100,
   };
 
-  function actions(action) {
+  function actions(action: string): void {
     switch (action) {
       case "attack":
         narration(action);
@@ -33,53 +34,56 @@ let character = (function () {
 
 // use js to make the button and make an if statement that make the control box append
 // different button (in this case, spell list) when click on the special ability
-const divControl = document.createElement("div");
+const divControl: HTMLDivElement = document.createElement("div");
 divControl.setAttribute("class", "control");
 
-const button1 = document.createElement("button");
+const button1: HTMLButtonElement = document.createElement("button");
 button1.setAttribute("class", "action");
 button1.setAttribute("id", "btn1");
 button1.setAttribute("onclick", "character.actions('attack')");
 button1.textContent = "Attack";
-const button2 = document.createElement("button");
+const button2: HTMLButtonElement = document.createElement("button");
 button2.setAttribute("class", "action");
 button2.setAttribute("id", "bt2");
 button2.setAttribute("onclick", "character.actions('defense')");
 button2.textContent = "Defense";
-const button3 = document.createElement("button");
+const button3: HTMLButtonElement = document.createElement("button");
 button3.setAttribute("class", "action");
 button3.setAttribute("id", "btn3");
 //button3.setAttribute("onclick", "character.actions('special')");
 button3.addEventListener("click", change_to_spell_list);
 button3.textContent = "Special";
 
-/*function create_spells(spell_variable, spell_name) {
-  const spell_variable = document.createElement("button");
+function create_spells(spell_name: string) {
+  const spell_variable: HTMLButtonElement = document.createElement("button");
   spell_variable.setAttribute("class", "spells");
   spell_variable.textContent = spell_name;
-}*/
+  return spell_variable;
+}
 
-const Fireball = document.createElement("button");
-Fireball.setAttribute("class", "spells");
-Fireball.textContent = "Fireball";
-const Shield = document.createElement("button");
-Shield.setAttribute("class", "spells");
-Shield.textContent = "Shield";
-const Grasp_heart = document.createElement("button");
-Grasp_heart.setAttribute("class", "spells");
-Grasp_heart.textContent = "Grasp Heart";*/
-const back = document.createElement("button");
-back.addEventListener("click", change_back_to_controller());
+const back: HTMLButtonElement = document.createElement("button");
+back.addEventListener("click", change_back_to_controller);
 back.textContent = "Back";
 
-function change_to_spell_list() {
+interface Spell {
+  name: string;
+  button: HTMLButtonElement;
+}
+
+const spellList: Spell[] = [
+  { name: "Fireball", button: create_spells("Fireball") },
+  { name: "Shield", button: create_spells("Shield") },
+  { name: "Grasp Heart", button: create_spells("Grasp Heart") },
+];
+
+function change_to_spell_list(): void {
   while (divControl.firstChild) {
     divControl.removeChild(divControl.firstChild);
   }
   //divControl.setAttribute("class", "SpellList");
   create_buttons_at_spell_list();
 }
-function change_back_to_controller() {
+function change_back_to_controller(): void {
   while (divControl.firstChild) {
     divControl.removeChild(divControl.firstChild);
   }
@@ -88,18 +92,9 @@ function change_back_to_controller() {
   divControl.appendChild(button2);
   divControl.appendChild(button3);
 }
-function create_buttons_at_spell_list() {
-  divControl.appendChild(Fireball);
-  divControl.appendChild(Shield);
-  divControl.appendChild(Grasp_heart);
+function create_buttons_at_spell_list(): void {
   divControl.appendChild(back);
+  spellList.forEach((spell) => divControl.appendChild(spell.button));
 }
 
-document.querySelector(".game-container").appendChild(divControl);
-
-/*const divBox = document.createElement('div');
-divBox.setAttribute('class', 'box');
-
-divBox.appendChild(divControl);
-
-document.body.appendChild(divBox);*/
+document.querySelector(".game-container")!.appendChild(divControl);
