@@ -49,19 +49,30 @@ button3.setAttribute("id", "btn3");
 button3.addEventListener("click", change_to_spell_list);
 button3.textContent = "Special";
 function create_spells(spell_name) {
-    var spell_variable = document.createElement("button");
+    const spell_variable = document.createElement("button");
     spell_variable.setAttribute("class", "spells");
     spell_variable.textContent = spell_name;
     return spell_variable;
 }
 var back = document.createElement("button");
 back.addEventListener("click", change_back_to_controller);
+back.onclick = function () { change_back_to_controller(); };
 back.textContent = "Back";
-var spellList = [
+const spellList = [
     { name: "Fireball", button: create_spells("Fireball") },
     { name: "Shield", button: create_spells("Shield") },
     { name: "Grasp Heart", button: create_spells("Grasp Heart") },
 ];
+function create_buttons_at_spell_list() {
+    spellList.forEach((spell) => {
+      divControl.appendChild(spell.button);
+    });
+    divControl.appendChild(back);
+  }
+
+
+
+
 function change_to_spell_list() {
     while (divControl.firstChild) {
         divControl.removeChild(divControl.firstChild);
@@ -78,8 +89,5 @@ function change_back_to_controller() {
     divControl.appendChild(button2);
     divControl.appendChild(button3);
 }
-function create_buttons_at_spell_list() {
-    divControl.appendChild(back);
-    spellList.forEach(function (spell) { return divControl.appendChild(spell.button); });
-}
+
 document.querySelector(".game-container").appendChild(divControl);

@@ -21,7 +21,7 @@ let character = (function () {
         narration(action);
         break;
       case "special":
-        change_to_spell_list();
+        
         break;
     }
   }
@@ -53,12 +53,6 @@ button3.setAttribute("id", "btn3");
 button3.addEventListener("click", change_to_spell_list);
 button3.textContent = "Special";
 
-/*function create_spells(spell_variable, spell_name) {
-  const spell_variable = document.createElement("button");
-  spell_variable.setAttribute("class", "spells");
-  spell_variable.textContent = spell_name;
-}*/
-
 const Fireball = document.createElement("button");
 Fireball.setAttribute("class", "spells");
 Fireball.textContent = "Fireball";
@@ -67,23 +61,28 @@ Shield.setAttribute("class", "spells");
 Shield.textContent = "Shield";
 const Grasp_heart = document.createElement("button");
 Grasp_heart.setAttribute("class", "spells");
-Grasp_heart.textContent = "Grasp Heart";*/
+Grasp_heart.textContent = "Grasp Heart";
+
 const back = document.createElement("button");
 back.addEventListener("click", change_back_to_controller());
+back.onclick = function() {change_back_to_controller();};
 back.textContent = "Back";
 
+/* i use this loop to remove the already placed buttons and append the
+ new button when the "special" or "back" button is clicked */
 function change_to_spell_list() {
-  while (divControl.firstChild) {
-    divControl.removeChild(divControl.firstChild);
-  }
-  //divControl.setAttribute("class", "SpellList");
+  while (divControl.firstChild) { 
+    divControl.removeChild        
+    (divControl.firstChild);      
+  }                               
+  //divControl.setAttribute("class", "SpellList"); ignore this
   create_buttons_at_spell_list();
 }
 function change_back_to_controller() {
   while (divControl.firstChild) {
     divControl.removeChild(divControl.firstChild);
   }
-  //divControl.setAttribute("class", "control");
+  //divControl.setAttribute("class", "control"); ignore this
   divControl.appendChild(button1);
   divControl.appendChild(button2);
   divControl.appendChild(button3);

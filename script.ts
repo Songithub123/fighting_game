@@ -63,6 +63,7 @@ function create_spells(spell_name: string) {
 
 const back: HTMLButtonElement = document.createElement("button");
 back.addEventListener("click", change_back_to_controller);
+back.onclick = function() {change_back_to_controller();};
 back.textContent = "Back";
 
 interface Spell {
