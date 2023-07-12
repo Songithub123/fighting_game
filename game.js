@@ -53,16 +53,6 @@ button3.setAttribute("id", "btn3");
 button3.addEventListener("click", change_to_spell_list);
 button3.textContent = "Special";
 
-const Fireball = document.createElement("button");
-Fireball.setAttribute("class", "spells");
-Fireball.textContent = "Fireball";
-const Shield = document.createElement("button");
-Shield.setAttribute("class", "spells");
-Shield.textContent = "Shield";
-const Grasp_heart = document.createElement("button");
-Grasp_heart.setAttribute("class", "spells");
-Grasp_heart.textContent = "Grasp Heart";
-
 const back = document.createElement("button");
 back.addEventListener("click", change_back_to_controller());
 back.onclick = function() {change_back_to_controller();};
@@ -70,28 +60,39 @@ back.textContent = "Back";
 
 /* i use this loop to remove the already placed buttons and append the
  new button when the "special" or "back" button is clicked */
+ function create_spells(spell_name) {
+  const spell_variable = document.createElement("button");
+  spell_variable.setAttribute("class", "spells");
+  spell_variable.textContent = spell_name;
+  return spell_variable;
+}
+
+const spellList = [
+  { name: "Fireball", button: create_spells("Fireball") },
+  { name: "Shield", button: create_spells("Shield") },
+  { name: "Grasp Heart", button: create_spells("Grasp Heart") },
+];
+
+function create_buttons_at_spell_list() {
+  spellList.forEach((spell) => {
+    divControl.appendChild(spell.button);
+  });
+  divControl.appendChild(back);
+}
 function change_to_spell_list() {
   while (divControl.firstChild) { 
     divControl.removeChild        
     (divControl.firstChild);      
   }                               
-  //divControl.setAttribute("class", "SpellList"); ignore this
   create_buttons_at_spell_list();
 }
 function change_back_to_controller() {
   while (divControl.firstChild) {
     divControl.removeChild(divControl.firstChild);
   }
-  //divControl.setAttribute("class", "control"); ignore this
   divControl.appendChild(button1);
   divControl.appendChild(button2);
   divControl.appendChild(button3);
-}
-function create_buttons_at_spell_list() {
-  divControl.appendChild(Fireball);
-  divControl.appendChild(Shield);
-  divControl.appendChild(Grasp_heart);
-  divControl.appendChild(back);
 }
 
 document.querySelector(".game-container").appendChild(divControl);
