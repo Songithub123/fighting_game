@@ -58,27 +58,41 @@ back.addEventListener("click", change_back_to_controller());
 back.onclick = function() {change_back_to_controller();};
 back.textContent = "Back";
 
-/* i use this loop to remove the already placed buttons and append the
- new button when the "special" or "back" button is clicked */
+//create spells with button attribute
  function create_spells(spell_name) {
   const spell_variable = document.createElement("button");
   spell_variable.setAttribute("class", "spells");
   spell_variable.textContent = spell_name;
   return spell_variable;
-}
-
+} // you create spells in this function
 const spellList = [
   { name: "Fireball", button: create_spells("Fireball") },
   { name: "Shield", button: create_spells("Shield") },
   { name: "Grasp Heart", button: create_spells("Grasp Heart") },
+  { name: "Chill touch", button: create_spells("Chill touch")}
 ];
-
+/* function will go through the spell list to append all of the 
+spell button*/
 function create_buttons_at_spell_list() {
+  divControl.appendChild(back);
   spellList.forEach((spell) => {
     divControl.appendChild(spell.button);
   });
-  divControl.appendChild(back);
 }
+function use_spell(spell_name) {
+  switch (spell_name) {
+    case "Fireball":
+      // do something
+      break;
+    case "Shield":
+      // do something else
+      break;
+    // add cases for other spells
+  }
+}
+
+/* i use this while loop to remove the already placed buttons and 
+append the new button when the "special" or "back" button is clicked */
 function change_to_spell_list() {
   while (divControl.firstChild) { 
     divControl.removeChild        
