@@ -2,24 +2,28 @@
   position: relative;
   background-color: black;
   margin-top: 30px;
-  
-  /*display: flex;*/
+  display: grid;
 }
 .screen {
   position: relative;
-  width: 500px;
-  height: 400px;
-  background-color: #3f0898;
-
+  width: 800px;
+  height: 500px;
+  background-color: #048f3e;
+  border: 1px solid #3209e9;
+  align-items: center;
+  justify-content: center;
 }
-.control, .SpellList {
+.control {
   background-color: #8f2702;
   width: 60%;
-  height: 150px;
+  height: flex;
   display: flex;
   flex-wrap: wrap;
   align-items: center;
-  justify-content: space-between;
+  justify-content: center;
+  justify-content: space-around;
+  border: 10px solid #3209e9;
+  box-sizing: border-box;
 }
 
 .computer-narration {
@@ -31,8 +35,7 @@
   right: 0px;
   background-color: #d2d8bc;
   font-family: Arial, sans-serif;
-  font-size: 16px;
-  line-height: 1.5;
+  font-size: 25px;
   color: #110e0e;
   border: 10px solid #3209e9;
   box-sizing: border-box;

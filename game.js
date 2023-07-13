@@ -38,42 +38,44 @@ divControl.setAttribute("class", "control");
 
 const button1 = document.createElement("button");
 button1.setAttribute("class", "action");
-button1.setAttribute("id", "btn1");
 button1.setAttribute("onclick", "character.actions('attack')");
 button1.textContent = "Attack";
 const button2 = document.createElement("button");
 button2.setAttribute("class", "action");
-button2.setAttribute("id", "bt2");
 button2.setAttribute("onclick", "character.actions('defense')");
 button2.textContent = "Defense";
 const button3 = document.createElement("button");
 button3.setAttribute("class", "action");
-button3.setAttribute("id", "btn3");
 //button3.setAttribute("onclick", "character.actions('special')");
 button3.addEventListener("click", change_to_spell_list);
 button3.textContent = "Special";
 
 const back = document.createElement("button");
+back.setAttribute("class", "back-button");
 back.addEventListener("click", change_back_to_controller());
 back.onclick = function() {change_back_to_controller();};
-back.textContent = "Back";
+back.textContent = "◀︎Back";
 
 //create spells with button attribute
- function create_spells(spell_name) {
+ function create_spells(spell_name, spell_level) {
   const spell_variable = document.createElement("button");
-  spell_variable.setAttribute("class", "spells");
+  spell_variable.setAttribute("class", "spells" + spell_level );
   spell_variable.textContent = spell_name;
   return spell_variable;
-} // you create spells in this function
+} /* you create spells in this function. the "name" variable is necessary
+now but it may be used to reference the button latter down the line*/
 const spellList = [
-  { name: "Fireball", button: create_spells("Fireball") },
-  { name: "Shield", button: create_spells("Shield") },
-  { name: "Grasp Heart", button: create_spells("Grasp Heart") },
-  { name: "Chill touch", button: create_spells("Chill touch")}
+  { name: "Fireball", button: create_spells("Fireball","3rd"), },
+  { name: "Shield", button: create_spells("Shield", "1st") },
+  { name: "Grasp Heart", button: create_spells("Grasp Heart", "9th") },
+  { name: "Chill touch", button: create_spells("Chill touch", "cantrip")},
+  { name: "Time stop", button: create_spells("Time stop", "10th")}, 
+  { name: "Mage hand", button: create_spells("Mage hand", "cantrip")}, 
+  { name: "Animate undead",button: create_spells("Animate undead", "3rd")},
 ];
 /* function will go through the spell list to append all of the 
 spell button*/
-function create_buttons_at_spell_list() {
+function append_buttons_at_spell_list() {
   divControl.appendChild(back);
   spellList.forEach((spell) => {
     divControl.appendChild(spell.button);
@@ -98,7 +100,7 @@ function change_to_spell_list() {
     divControl.removeChild        
     (divControl.firstChild);      
   }                               
-  create_buttons_at_spell_list();
+  append_buttons_at_spell_list();
 }
 function change_back_to_controller() {
   while (divControl.firstChild) {
