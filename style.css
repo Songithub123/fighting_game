@@ -1,13 +1,8 @@
-.background {
-  object-fit: cover;
-  position: relative;
-  align-self: center;
-  justify-self: center;
-}
+
 img {
-  max-width: 100%;
-  max-height: 500px;
-  position: relative;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
 }
 .enemy {
   width: 180px;
@@ -35,6 +30,3 @@ button {
   /*display: inline-block;
   width: 200px; */
 }
-
-
-

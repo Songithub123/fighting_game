@@ -1,13 +1,15 @@
+.big-container{
+  display: flex;
+}
 .game-container {
   position: relative;
   background-color: black;
   margin-top: 30px;
-  display: grid;
+  display: flex;
 }
 .screen {
+  flex: 3;
   position: relative;
-  width: 800px;
-  height: 500px;
   background-color: #048f3e;
   border: 1px solid #3209e9;
   align-items: center;
@@ -15,8 +17,7 @@
 }
 .control {
   background-color: #8f2702;
-  width: 60%;
-  height: flex;
+  flex: 1;
   display: flex;
   flex-wrap: wrap;
   align-items: center;
@@ -28,11 +29,9 @@
 
 .computer-narration {
   background-color: #0fa;
-  width: 40%;
-  height: 100%;
+  width: 90%;
+  height: 40%;
   position: absolute;
-  top: 0px;
-  right: 0px;
   background-color: #d2d8bc;
   font-family: Arial, sans-serif;
   font-size: 25px;

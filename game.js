@@ -21,7 +21,6 @@ let character = (function () {
         narration(action);
         break;
       case "special":
-        
         break;
     }
   }
@@ -53,25 +52,27 @@ button3.textContent = "Special";
 const back = document.createElement("button");
 back.setAttribute("class", "back-button");
 back.addEventListener("click", change_back_to_controller());
-back.onclick = function() {change_back_to_controller();};
+back.onclick = function () {
+  change_back_to_controller();
+};
 back.textContent = "◀︎Back";
 
 //create spells with button attribute
- function create_spells(spell_name, spell_level) {
+function create_spells(spell_name, spell_level) {
   const spell_variable = document.createElement("button");
-  spell_variable.setAttribute("class", "spells" + spell_level );
+  spell_variable.setAttribute("class", "spells" + spell_level);
   spell_variable.textContent = spell_name;
   return spell_variable;
 } /* you create spells in this function. the "name" variable is necessary
 now but it may be used to reference the button latter down the line*/
 const spellList = [
-  { name: "Fireball", button: create_spells("Fireball","3rd"), },
+  { name: "Fireball", button: create_spells("Fireball", "3rd") },
   { name: "Shield", button: create_spells("Shield", "1st") },
   { name: "Grasp Heart", button: create_spells("Grasp Heart", "9th") },
-  { name: "Chill touch", button: create_spells("Chill touch", "cantrip")},
-  { name: "Time stop", button: create_spells("Time stop", "10th")}, 
-  { name: "Mage hand", button: create_spells("Mage hand", "cantrip")}, 
-  { name: "Animate undead",button: create_spells("Animate undead", "3rd")},
+  { name: "Chill touch", button: create_spells("Chill touch", "cantrip") },
+  { name: "Time stop", button: create_spells("Time stop", "10th") },
+  { name: "Mage hand", button: create_spells("Mage hand", "cantrip") },
+  { name: "Animate undead", button: create_spells("Animate undead", "3rd") },
 ];
 /* function will go through the spell list to append all of the 
 spell button*/
@@ -96,10 +97,9 @@ function use_spell(spell_name) {
 /* i use this while loop to remove the already placed buttons and 
 append the new button when the "special" or "back" button is clicked */
 function change_to_spell_list() {
-  while (divControl.firstChild) { 
-    divControl.removeChild        
-    (divControl.firstChild);      
-  }                               
+  while (divControl.firstChild) {
+    divControl.removeChild(divControl.firstChild);
+  }
   append_buttons_at_spell_list();
 }
 function change_back_to_controller() {
