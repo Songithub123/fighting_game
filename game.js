@@ -9,6 +9,7 @@ class Character {
     let atk = 2 * wizard_level + 10 * Knight_level;
     let def = 2 * wizard_level + 10 * Knight_level;
     let hp = 10 * wizard_level + 50 * Knight_level;
+    let max-hp = 10 * wizard_level + 50 * Knight_level;
     let mp = 15 * wizard_level + 1 * Knight_level;
   }
   levelUp(){
@@ -86,7 +87,7 @@ function append_buttons_at_spell_list() {
     divControl.appendChild(spell.button);
   });
 }
-function use_spell(spell_name) {
+function use_spell(spell_name,caster,caster-enemy) {
   switch (spell_name) {
     case "Fireball":
       console.log("You use fireball");
