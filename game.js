@@ -32,8 +32,6 @@ yourcharacter.stats(20,0);
 const enemy = new Character;
 enemy.stats(20,0);
 
-// use js to make the button and make an if statement that make the control box append
-// different button (in this case, spell list) when click on the special ability
 const divControl = document.querySelector('.control');
 
 const button1 = document.createElement("button");
