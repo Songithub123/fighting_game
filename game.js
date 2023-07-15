@@ -67,8 +67,7 @@ function create_spells(spell_name, spell_level) {
     use_spell(spell_name);
   };
   return spell_variable;
-} /* you create spells in this function. the "name" variable is not necessary
-now but it may be used to reference the button latter down the line*/
+} /* you create spells in this function.*/
 const spellList = [
   { button: create_spells("Fireball", "3rd") },
   { button: create_spells("Shield", "1st") },
