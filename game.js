@@ -4,16 +4,18 @@ function narration(action) {
   document.querySelector(".computer-narration").appendChild(p);
 }
 
-let character = (function () {
-  let stats = {
-    atk: 100,
-    def: 100,
-    hp: 1000,
-    mp: 100,
-  };
+class Character {
+  stats(wizard_level, Knight_level) {
+    let atk = 2 * wizard_level + 10 * Knight_level;
+    let def = 2 * wizard_level + 10 * Knight_level;
+    let hp = 10 * wizard_level + 50 * Knight_level;
+    let mp = 15 * wizard_level + 1 * Knight_level;
+  }
+  levelUp(){
 
-  function actions(action) {
-    switch (action) {
+  }
+  actions (action){
+    switch (action){
       case "attack":
         narration(action);
         break;
@@ -21,37 +23,38 @@ let character = (function () {
         narration(action);
         break;
       case "special":
-        break;
+        narration(action);    
     }
   }
-  return {
-    stats: stats,
-    actions: actions,
-  };
-})();
+};
+const yourcharacter = new Character;
+yourcharacter.stats(20,0);
+const enemy = new Character;
+enemy.stats(20,0);
 
 // use js to make the button and make an if statement that make the control box append
 // different button (in this case, spell list) when click on the special ability
-const divControl = document.createElement("div");
-divControl.setAttribute("class", "control");
+const divControl = document.querySelector('.control');
 
 const button1 = document.createElement("button");
 button1.setAttribute("class", "action");
-button1.setAttribute("onclick", "character.actions('attack')");
+button1.setAttribute("onclick", "yourcharacter.actions('attack')");
 button1.textContent = "Attack";
 const button2 = document.createElement("button");
 button2.setAttribute("class", "action");
-button2.setAttribute("onclick", "character.actions('defense')");
+button2.setAttribute("onclick", "yourcharacter.actions('defense')");
 button2.textContent = "Defense";
 const button3 = document.createElement("button");
 button3.setAttribute("class", "action");
 //button3.setAttribute("onclick", "character.actions('special')");
 button3.addEventListener("click", change_to_spell_list);
 button3.textContent = "Special";
+divControl.appendChild(button1);
+divControl.appendChild(button2);
+divControl.appendChild(button3);
 
 const back = document.createElement("button");
 back.setAttribute("class", "back-button");
-back.addEventListener("click", change_back_to_controller());
 back.onclick = function () {
   change_back_to_controller();
 };
@@ -62,17 +65,21 @@ function create_spells(spell_name, spell_level) {
   const spell_variable = document.createElement("button");
   spell_variable.setAttribute("class", "spells" + spell_level);
   spell_variable.textContent = spell_name;
+  spell_variable.onclick = function () {
+    use_spell(spell_name);
+  };
   return spell_variable;
-} /* you create spells in this function. the "name" variable is necessary
+} /* you create spells in this function. the "name" variable is not necessary
 now but it may be used to reference the button latter down the line*/
 const spellList = [
-  { name: "Fireball", button: create_spells("Fireball", "3rd") },
-  { name: "Shield", button: create_spells("Shield", "1st") },
-  { name: "Grasp Heart", button: create_spells("Grasp Heart", "9th") },
-  { name: "Chill touch", button: create_spells("Chill touch", "cantrip") },
-  { name: "Time stop", button: create_spells("Time stop", "10th") },
-  { name: "Mage hand", button: create_spells("Mage hand", "cantrip") },
-  { name: "Animate undead", button: create_spells("Animate undead", "3rd") },
+  { button: create_spells("Fireball", "3rd") },
+  { button: create_spells("Shield", "1st") },
+  { button: create_spells("Grasp Heart", "9th") },
+  { button: create_spells("Chill touch", "cantrip") },
+  { button: create_spells("Time stop", "10th") },
+  { button: create_spells("Mage hand", "cantrip") },
+  { button: create_spells("Animate dead", "3rd") },
+  { button: create_spells("Summon undead", "3rd") },
 ];
 /* function will go through the spell list to append all of the 
 spell button*/
@@ -85,10 +92,10 @@ function append_buttons_at_spell_list() {
 function use_spell(spell_name) {
   switch (spell_name) {
     case "Fireball":
-      // do something
+      console.log("You use fireball");
       break;
     case "Shield":
-      // do something else
+      console.log("You use shield");
       break;
     // add cases for other spells
   }
@@ -111,7 +118,7 @@ function change_back_to_controller() {
   divControl.appendChild(button3);
 }
 
-document.querySelector(".game-container").appendChild(divControl);
+document.querySelector('.game-container').appendChild(divControl);
 
 /*const divBox = document.createElement('div');
 divBox.setAttribute('class', 'box');

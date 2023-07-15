@@ -9,18 +9,18 @@ img {
   object-fit: cover;
 }
 .enemy {
-  width: 230px;
+  width: 250px;
   position: absolute;
   align-self: center;
-  bottom: 30%;
-  right: 5px;
+  bottom: 25%;
+  right: 90px;
   z-index: 2;
 }
 .player {
-  width: 420px;
+  width: 450px;
   position: absolute;
-  bottom: 2px;
-  left: 10px;
+  bottom: 10px;
+  left: 50px;
   z-index: 2;
 }
 

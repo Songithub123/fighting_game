@@ -1,14 +1,11 @@
-.big-container{
-  display: flex;
-}
+
 .game-container {
-  position: relative;
   background-color: black;
-  margin-top: 30px;
-  display: flex;
+  width: 100%;
 }
 .screen {
-  flex: 3;
+  width: 950px;
+  height: 750px;
   position: relative;
   background-color: #048f3e;
   border: 1px solid #3209e9;
@@ -17,7 +14,9 @@
 }
 .control {
   background-color: #8f2702;
-  flex: 1;
+  position: relative;
+  right: 0px;
+  height: 100%;
   display: flex;
   flex-wrap: wrap;
   align-items: center;
@@ -38,4 +37,10 @@
   color: #110e0e;
   border: 10px solid #3209e9;
   box-sizing: border-box;
+}
+
+.home-page-button{
+  font-size: 50px;
+  position: absolute;
+  right: 50px;
 }
