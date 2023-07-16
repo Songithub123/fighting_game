@@ -1,32 +1,51 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Turn based fighting game</title>
-    <link rel="stylesheet" href="style.css">
-    <link rel="stylesheet" href="layout.css">
-</head>
-<body>
-    <div class="game-container" >
-        <div class="screen" >
-            <div class="background" >
-                <img  src="image/background/_bc977e96-e504-49b1-8b26-faff48e5548e.jpg" alt="">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Turn based fighting game</title>
+        <link rel="stylesheet" href="style.css">
+        <link rel="stylesheet" href="layout.css">
+    </head>
+    <body>
+        <div class="big-container">
+            <label for="wizard-level">Wizard Level:</label>
+            <input
+                type="number"
+                id="wizard-level"
+                name="wizard-level"
+                value="1"
+            >
+            <label for="knight-level">Knight Level:</label>
+            <input
+                type="number"
+                id="knight-level"
+                name="knight-level"
+                value="1"
+            >
+            <button id="start-battle-btn">Start Battle</button>
+            <div class="game-container">
+                <div class="screen">
+                    <div class="background">
+                        <img src="image\background\_4cb0c1d7-f6dd-489b-82bd-403af6db5a40.jpg" alt="">
+                    </div>
+                    <div class="enemy">
+                        <div class="hp-fill"></div>
+                        <img src="image/wizard-front.png" alt="">
+                    </div>
+                    <div class="player">
+                        <img src="image/_6c73ab70-8831-4bb5-8fa5-4ea399107278-removebg-preview.png" alt="">
+                    </div>
+                </div>
+                <div class="control"></div>
             </div>
-            <div class="enemy" >
-                <img  src="image/wizard-front.png" alt="">
-            </div>
-            <div class="player" >
-                <img  src="image/_6c73ab70-8831-4bb5-8fa5-4ea399107278-removebg-preview.png" alt="">
-            </div>
+            <div class="computer-narration"></div>
         </div>
-        <div class="control" >
-            
-        </div>
-    </div>
-    <div class="computer-narration" ></div>
-    <a class="home-page-button" href="home-page.html">Home <br>page</br></a>
-    <script src="game.js"></script>
-</body>
+        <a class="home-page-button" href="home-page.html">
+            Home
+            <br>page</br>
+        </a>
+        <script src="game.js"></script>
+    </body>
 </html>
