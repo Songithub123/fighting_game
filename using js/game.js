@@ -201,7 +201,7 @@ function if_damage_is_lower_than_zero(damage){
 
 function enemy_turn(enemy, player) {
   const actions = ["attack", "defense", "useSpell"];
-  let action = actions[Math.floor(Math.random() * 2)];
+  let action = actions[Math.floor(Math.random() * actions.length)];
   switch (action) {
     case "attack":
       console.log("Enemy attacks");
