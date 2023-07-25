@@ -1,4 +1,7 @@
 //import React, {useState} from 'react';
+import background from './image/background/_4cb0c1d7-f6dd-489b-82bd-403af6db5a40.jpg'
+import enemyImage from './image/wizard-front.png'
+import playerImage from './image/wizard-back 2.png'
 
 export default function App() {
   return (
@@ -10,7 +13,13 @@ export default function App() {
       <button id="start-battle-btn" >Start battle</button>
       <div id="game-container" >
         <div className="screen" >
-          <img src="" alt="" />
+          <img src={background} alt="" />
+          <div className='enemy' >
+            <img src={enemyImage} alt="" />
+          </div>
+          <div className='player' >
+            <img src={playerImage} alt="" />
+          </div>
         </div>
         <div className="control" >
 
