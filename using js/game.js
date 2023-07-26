@@ -2,7 +2,7 @@ const divControl = document.querySelector(".control");
 // attack,defense and special abilities button
 const attackbtn = document.createElement("button");
 attackbtn.setAttribute("class", "action");
-attackbtn.setAttribute("onclick", "player.actions('attack')");
+attackbtn.setAttribute("onclick", "player.actions('attack',player,enemy)");
 attackbtn.textContent = "Attack";
 const defensebtn = document.createElement("button");
 defensebtn.setAttribute("class", "action");
@@ -23,23 +23,30 @@ back.onclick = function () {
   change_back_to_controller();
 };
 back.textContent = "◀︎Back";
+const back2 = document.createElement("button");
+back2.setAttribute("class", "back-button");
+back2.onclick = function () {
+  change_to_spell_list();
+};
+back2.textContent = "◀︎Back";
 
 let p = document.createElement("p");
 function narration(action) {
   p.textContent = "You " + action;
   document.querySelector(".computer-narration").appendChild(p);
 }
-
+let player;
+let enemy;
 const startBattleButton = document.getElementById("start-battle-btn");
 
 startBattleButton.addEventListener("click", () => {
   const wizardLevelInput = document.getElementById("wizard-level");
   const knightLevelInput = document.getElementById("knight-level");
-  const player = new Character(
+  player = new Character(
     parseInt(wizardLevelInput.value),
     parseInt(knightLevelInput.value)
   );
-  const enemy = new Character(
+  enemy = new Character(
     parseInt(wizardLevelInput.value),
     parseInt(knightLevelInput.value)
   );
@@ -49,7 +56,7 @@ class Character {
   constructor(wizard_level, knight_level) {
     this.wizard_level = wizard_level;
     this.knight_level = knight_level;
-    this.atk = 2 * this.wizard_level + 10 * this.knight_level;
+    this.strength = 2 * this.wizard_level + 10 * this.knight_level;
     this.def = 2 * this.wizard_level + 5 * this.knight_level;
     this.speed = 1 * this.wizard_level + 5 * this.knight_level;
     this.hp = 10 * this.wizard_level + 50 * this.knight_level;
@@ -64,7 +71,7 @@ class Character {
     switch (action) {
       case "attack":
         narration(action);
-        target.hp -= user.atk - target.def;
+        target.hp -= (user.strength - target.def);
         break;
       case "defense":
         narration(action);
@@ -76,13 +83,12 @@ class Character {
   }
 }
 function use_spell(spell_name, caster, target) {
-  //
   const spell = spellList.find((s) => s.button.textContent === spell_name);
 
   if (caster.mp < spell.spell_lv) {
     document
       .querySelector(".computer-narration")
-      .append('p.textContent = "Not enough MP"');
+      .append(p.textContent = "Not enough MP");
   } else {
     caster.mp -= spell.spell_lv;
     switch (spell_name) {
@@ -98,7 +104,7 @@ function use_spell(spell_name, caster, target) {
         break;
       case "Grasp heart":
         const saving_throw =
-          target.atk < 50 * caster.magic_potency ? true : false;
+          target.strength < 50 * caster.magic_potency ? true : false;
         if (saving_throw) {
           target.hp = 0;
         }
@@ -161,8 +167,17 @@ function create_spells(spell_name, spell_level) {
   return spell_button_variable;
 } /* you create spells in this function.*/
 const spellList = [
+  { spell_lv: 0, button: create_spells("Chill touch", "cantrip") },
+  { spell_lv: 0, button: create_spells("Mage hand", "cantrip") },
   { spell_lv: 1, button: create_spells("Shield", "1st") },
   { spell_lv: 1, button: create_spells("Magic missils", "1st") },
+  { spell_lv: 2, button: create_spells("Acid Arrow", "2nd") },
+  { spell_lv: 2, button: create_spells("Cure Disease", "2nd") },
+  { spell_lv: 2, button: create_spells("Lesser Dexterity", "2nd") },
+  { spell_lv: 2, button: create_spells("Lesser Strength", "2nd") },
+  { spell_lv: 2, button: create_spells("Shock Wave", "2nd") },
+  { spell_lv: 2, button: create_spells("Summon Angel 2nd Tier", "2nd") },
+  { spell_lv: 2, button: create_spells("Thunderlance", "2nd") },
   { spell_lv: 3, button: create_spells("Fireball", "3rd") },
   { spell_lv: 3, button: create_spells("Animate dead", "3rd") },
   { spell_lv: 3, button: create_spells("Summon undead", "3rd") },
@@ -250,19 +265,47 @@ const spellList = [
   { spell_lv: 10, button: create_spells("Ultimate Disturb", "10th") },
   { spell_lv: 10, button: create_spells("Uriel", "10th") },
   { spell_lv: 10, button: create_spells("Time stop", "10th") },
-  { spell_lv: 0, button: create_spells("Chill touch", "cantrip") },
-  { spell_lv: 0, button: create_spells("Mage hand", "cantrip") },
 ];
 
 /*const levels = ["cantrip", "1st", "2nd", "3rd", "4th", "5th", "6th", "7th", "8th", "9th"];
 const sortedSpellList = levels.flatMap(level => 
     spellList.filter(spell => spell.button.getAttribute("class").includes(level)));
     console.log(sortedSpellList);*/
-/* function will go through the spell list to append all of the 
-spell button*/
+
+function create_spell_button_based_on_level(spell_level, button_name) {
+  const spell_button = document.createElement("button");
+  spell_button.textContent = button_name + " tier spells";
+  spell_button.onclick = function () {
+    let spells = spellList.filter((spell) => spell.spell_lv === spell_level);
+    while (divControl.firstChild) {
+      divControl.removeChild(divControl.firstChild);
+    }
+    divControl.appendChild(back2);
+    spells.forEach((spell) => {
+      divControl.appendChild(spell.button);
+    });
+  };
+  return spell_button;
+}
+const spell_tier_button = [
+  { button: create_spell_button_based_on_level(0, "0th") },
+  { button: create_spell_button_based_on_level(1, "1st") },
+  { button: create_spell_button_based_on_level(2, "2nd") },
+  { button: create_spell_button_based_on_level(3, "3rd") },
+  { button: create_spell_button_based_on_level(4, "4th") },
+  { button: create_spell_button_based_on_level(5, "5th") },
+  { button: create_spell_button_based_on_level(6, "6th") },
+  { button: create_spell_button_based_on_level(7, "7th") },
+  { button: create_spell_button_based_on_level(8, "8th") },
+  { button: create_spell_button_based_on_level(9, "9th") },
+  { button: create_spell_button_based_on_level(10, "10th") },
+];
 function append_buttons_at_spell_list() {
+  while (divControl.firstChild) {
+    divControl.removeChild(divControl.firstChild);
+  }
   divControl.appendChild(back);
-  spellList.forEach((spell) => {
+  spell_tier_button.forEach((spell) => {
     divControl.appendChild(spell.button);
   });
 }
@@ -286,7 +329,7 @@ function enemy_turn(enemy, player) {
   switch (action) {
     case "attack":
       console.log("Enemy attacks");
-      player.hp -= roll_dice(1, 6) * enemy.atk;
+      player.hp -= roll_dice(1, 6) * enemy.strength;
       break;
     case "defense":
       console.log("Enemy defends");
@@ -307,7 +350,7 @@ function enemy_turn(enemy, player) {
         switch (action) {
           case "attack":
             console.log("Enemy attacks");
-            player.hp -= roll_dice(1, 6) * enemy.stats.atk;
+            player.hp -= roll_dice(1, 6) * enemy.stats.strength;
             break;
           case "defense":
             console.log("Enemy defends");
