@@ -35,23 +35,6 @@ function narration(action) {
   p.textContent = "You " + action;
   document.querySelector(".computer-narration").appendChild(p);
 }
-let player;
-let enemy;
-const startBattleButton = document.getElementById("start-battle-btn");
-
-startBattleButton.addEventListener("click", () => {
-  const wizardLevelInput = document.getElementById("wizard-level");
-  const knightLevelInput = document.getElementById("knight-level");
-  player = new Character(
-    parseInt(wizardLevelInput.value),
-    parseInt(knightLevelInput.value)
-  );
-  enemy = new Character(
-    parseInt(wizardLevelInput.value),
-    parseInt(knightLevelInput.value)
-  );
-  startBattleButton.textContent = "In battle";
-});
 class Character {
   constructor(wizard_level, knight_level) {
     this.wizard_level = wizard_level;
@@ -71,7 +54,7 @@ class Character {
     switch (action) {
       case "attack":
         narration(action);
-        target.hp -= (user.strength - target.def);
+        target.hp -= user.strength - target.def;
         break;
       case "defense":
         narration(action);
@@ -82,25 +65,169 @@ class Character {
     }
   }
 }
+
+let player;
+let enemy;
+const startBattleButton = document.getElementById("start-battle-btn");
+startBattleButton.addEventListener("click", () => {
+  const wizardLevelInput = document.getElementById("wizard-level");
+  const knightLevelInput = document.getElementById("knight-level");
+  player = new Character(
+    parseInt(wizardLevelInput.value),
+    parseInt(knightLevelInput.value)
+  );
+  enemy = new Character(
+    parseInt(wizardLevelInput.value),
+    parseInt(knightLevelInput.value)
+  );
+  startBattleButton.textContent = "In battle";
+});
 function use_spell(spell_name, caster, target) {
   const spell = spellList.find((s) => s.button.textContent === spell_name);
-
   if (caster.mp < spell.spell_lv) {
     document
       .querySelector(".computer-narration")
-      .append(p.textContent = "Not enough MP");
+      .append((p.textContent = "Not enough MP "));
   } else {
     caster.mp -= spell.spell_lv;
     switch (spell_name) {
+      case "Chill touch":
+        dmg = roll_dice(1, 6) * caster.magic_potency - target.def;
+        if_damage_is_lower_than_zero(dmg);
+        target.hp = -dmg;
+        break;
+      case "Mage hand":
+        break;
+      case "Shield":
+        console.log("You use shield");
+        caster.defense += roll_dice(2, 3) * caster.magic_potency;
+        break;
+      case "Magic missile":
+        for (let i = 0; i < 3; i++) {
+          const dmg = (roll_dice(1, 4) + 1) * caster.magic_potency - target.def;
+          if_damage_is_lower_than_zero(dmg);
+          target.hp = -dmg;
+        }
+        break;
+      case "Acid Arrow":
+        break;
+      case "Cure Disease":
+        break;
+      case "Lesser Dexterity":
+        break;
+      case "Lesser Strength":
+        break;
+      case "Shock Wave":
+        break;
+      case "Summon Angel 2nd Tier":
+        break;
+      case "Thunderlance":
+        break;
       case "Fireball":
         console.log("You use fireball");
         const dmg = roll_dice(8, 6) * caster.magic_potency - target.def;
         if_damage_is_lower_than_zero(dmg);
         target.hp = -dmg;
         break;
-      case "Shield":
-        console.log("You use shield");
-        caster.defense += roll_dice(2, 3) * caster.magic_potency;
+      case "Animate dead":
+        break;
+      case "Summon undead 3rd":
+        break;
+      case "Burn Lance":
+        break;
+      case "Charm Species":
+        break;
+      case "Control Cloud":
+        break;
+      case "Crystal Lance":
+        break;
+      case "Dehydration":
+        break;
+      case "Freeze Lance":
+        break;
+      case "Grand Fireball":
+        break;
+      case "Holy Aura":
+        break;
+      case "Holy Ray":
+        break;
+      case "Shock Lance":
+        break;
+      case "Silver Lance":
+        break;
+      case "Summon Angel 4th":
+        break;
+      case "Tremor Sense":
+        break;
+      case "Dragon Lightning":
+        break;
+      case "Raise Dead":
+        break;
+      case "Sand Field":
+        break;
+      case "Summon Undead 5th":
+        break;
+      case "Teleportation":
+        break;
+      case "Vermin Bane":
+        break;
+      case "Undying Flame":
+        break;
+      case "Control Weather":
+        break;
+      case "Heal":
+        break;
+      case "Flamewing":
+        break;
+      case "Summon Undead 6th":
+        break;
+      case "Wall of Hell":
+        break;
+      case "Blasphemy":
+        break;
+      case "Chain Dragon Lightning":
+        break;
+      case "Focus Magic":
+        break;
+      case "Greater Teleportation":
+        break;
+      case "Greater Word of Curse":
+        break;
+      case "Hell Flame":
+        break;
+      case "Hellfire Wall":
+        break;
+      case "Holy Smite":
+        break;
+      case "Napalm":
+        break;
+      case "Phoenix Flame":
+        break;
+      case "Resurrection":
+        break;
+      case "Shining Burst":
+        break;
+      case "Summon Angel 7th":
+        break;
+      case "Undeath Army":
+        break;
+      case "Aspect of Elemental":
+        break;
+      case "Astral Smite":
+        break;
+      case "Death":
+        break;
+      case "Dimensional Lock":
+        break;
+      case "Distort Moral":
+        break;
+      case "Energy Drain":
+        break;
+      case "Explosion":
+        break;
+      case "Insanity":
+        break;
+      case "Wave of Pain":
         break;
       case "Grasp heart":
         const saving_throw =
@@ -109,16 +236,67 @@ function use_spell(spell_name, caster, target) {
           target.hp = 0;
         }
         break;
-      case "Chill touch":
-        dmg = roll_dice(1, 6) * caster.magic_potency - target.def;
-        if_damage_is_lower_than_zero(dmg);
-        target.hp = -dmg;
+      case "Bless of Titania":
+        break;
+      case "Call Greater Thunder":
+        break;
+      case "Crack In The Ground":
+        break;
+      case "Elemental Form":
+        break;
+      case "Greater Rejection":
+        break;
+      case "Lead of Yatagarasu":
+        break;
+      case "Nuclear Blast":
+        break;
+      case "Perfect Unknowable":
+        break;
+      case "Polar Claw":
+        break;
+      case "Tempest":
+        break;
+      case "Temporal Stasis":
+        break;
+      case "True Death":
+        break;
+      case "True Resurrection":
+        break;
+      case "Vermilion Nova":
+        break;
+      case "Armageddon - Evil":
+        break;
+      case "Armageddon - Good":
+        break;
+      case "Body of Effulgent Aquamarine":
+        break;
+      case "Body of Effulgent Heliodor":
+        break;
+      case "Create Fortress":
+        break;
+      case "Implosion":
+        break;
+      case "Mercy of Shorea Robusta":
+        break;
+      case "Mist of Super Acid":
+        break;
+      case "Meteor Fall":
+        break;
+      case "Reality Slash":
+        break;
+      case "Seven Trumpeter":
+        break;
+      case "Stream of Lava":
+        break;
+      case "Summon Monster 10th":
+        break;
+      case "Summon Undead 10th":
+        break;
+      case "Ultimate Disturb":
+        break;
+      case "Uriel":
         break;
       case "Time stop":
-        break;
-      case "Animate dead":
-        break;
-      case "Summon undead":
         break;
     }
   }
@@ -162,6 +340,9 @@ function create_spells(spell_name, spell_level) {
   spell_button_variable.setAttribute("class", "spells" + spell_level);
   spell_button_variable.textContent = spell_name;
   spell_button_variable.onclick = function () {
+    if (typeof player === "undefined") {
+      return;
+    }
     use_spell(spell_name, player, enemy);
   };
   return spell_button_variable;
@@ -170,7 +351,7 @@ const spellList = [
   { spell_lv: 0, button: create_spells("Chill touch", "cantrip") },
   { spell_lv: 0, button: create_spells("Mage hand", "cantrip") },
   { spell_lv: 1, button: create_spells("Shield", "1st") },
-  { spell_lv: 1, button: create_spells("Magic missils", "1st") },
+  { spell_lv: 1, button: create_spells("Magic missile", "1st") },
   { spell_lv: 2, button: create_spells("Acid Arrow", "2nd") },
   { spell_lv: 2, button: create_spells("Cure Disease", "2nd") },
   { spell_lv: 2, button: create_spells("Lesser Dexterity", "2nd") },
@@ -180,7 +361,7 @@ const spellList = [
   { spell_lv: 2, button: create_spells("Thunderlance", "2nd") },
   { spell_lv: 3, button: create_spells("Fireball", "3rd") },
   { spell_lv: 3, button: create_spells("Animate dead", "3rd") },
-  { spell_lv: 3, button: create_spells("Summon undead", "3rd") },
+  { spell_lv: 3, button: create_spells("Summon undead 3rd", "3rd") },
   { spell_lv: 4, button: create_spells("Burn Lance", "4th") },
   { spell_lv: 4, button: create_spells("Charm Species", "4th") },
   { spell_lv: 4, button: create_spells("Control Cloud", "4th") },
@@ -234,7 +415,6 @@ const spellList = [
   { spell_lv: 9, button: create_spells("Call Greater Thunder", "9th") },
   { spell_lv: 9, button: create_spells("Crack In The Ground", "9th") },
   { spell_lv: 9, button: create_spells("Elemental Form", "9th") },
-  { spell_lv: 9, button: create_spells("Grasp Heart", "9th") },
   { spell_lv: 9, button: create_spells("Greater Rejection", "9th") },
   { spell_lv: 9, button: create_spells("Lead of Yatagarasu", "9th") },
   { spell_lv: 9, button: create_spells("Nuclear Blast", "9th") },
